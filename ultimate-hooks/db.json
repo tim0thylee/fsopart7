@@ -1,0 +1,52 @@
+{
+  "notes": [
+    {
+      "content": "custom-hookit aivan mahtavia",
+      "id": 1
+    },
+    {
+      "content": "paras feature ikinä <3",
+      "id": 2
+    },
+    {
+      "content": "Banana",
+      "id": 3
+    },
+    {
+      "content": "Apples",
+      "id": 4
+    },
+    {
+      "content": "Beroo",
+      "id": 5
+    },
+    {
+      "content": "BAnana",
+      "id": 6
+    },
+    {
+      "content": "Hello",
+      "id": 7
+    },
+    {
+      "content": "Hellow",
+      "id": 8
+    },
+    {
+      "content": "Goodbye",
+      "id": 9
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "asdfadf",
+      "number": "1233121414",
+      "id": 2
+    }
+  ]
+}
