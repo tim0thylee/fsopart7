@@ -4,7 +4,7 @@ import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import { initializeBlogs } from './reducers/blogReducer'
+import { initializeBlogs, setBlogs, createBlog, deleteBlog, updateBlog } from './reducers/blogReducer'
 import { setNotification, deleteNotification } from './reducers/notificatonReducer'
 
 const App = () => {
@@ -15,8 +15,8 @@ const App = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    blogService.getAll().then(blogs => dispatch(initializeBlogs(blogs)))
-  }, [])
+    dispatch(initializeBlogs())
+  }, [dispatch])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
@@ -56,14 +56,12 @@ const App = () => {
 
   const handleNewBlog = async newBlog => {
     try {
-      const newBlogReponse = await blogService.create(newBlog)
+      dispatch(createBlog(newBlog))
       dispatch(setNotification(`a new blog ${newBlog.title} by ${newBlog.author} added`))
       setTimeout(() => {
         dispatch(deleteNotification())
       }, 5000)
-      blogService.getAll().then(blogs =>
-        dispatch(initializeBlogs(blogs))
-      )
+      dispatch(initializeBlogs())
     } catch (exception) {
       dispatch(setNotification('Something has gone wrong. Please try posting again.'))
       setTimeout(() => {
@@ -74,8 +72,7 @@ const App = () => {
 
   const handleUpdateBlog = async (updatedBlog, blogId) => {
     try {
-      const updatedBlogResponse = await blogService.update(updatedBlog, blogId)
-      dispatch(initializeBlogs(blogs.map(blog => blog.id !== blogId ? blog : updatedBlogResponse)))
+      dispatch(updateBlog(updatedBlog, blogId))
     } catch (exception) {
       dispatch(setNotification('Could not update. Please try posting again.'))
       setTimeout(() => {
@@ -88,8 +85,7 @@ const App = () => {
     try {
       const confirmDelete = window.confirm(`Remove blog ${blog.title} by ${blog.author}`)
       if (confirmDelete) {
-        await blogService.deleteBlog(blogId)
-        dispatch(initializeBlogs(blogs.filter(blog => blog.id !== blogId)))
+        dispatch(deleteBlog(blogId))
         dispatch(setNotification('Blog was successfully deleted.'))
         setTimeout(() => {
           dispatch(deleteNotification())
