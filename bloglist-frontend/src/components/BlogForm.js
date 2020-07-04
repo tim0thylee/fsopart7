@@ -9,13 +9,13 @@ const BlogsForm = ({
   handleNewBlog,
   handleUpdateBlog,
   handleDelete,
-  user,
-  blogs
 }) => {
+  const user = useSelector(state => state.user)
+  const blogs = useSelector(state => state.blogs)
+  const notification = useSelector(state => state.notification)
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
-  const notification = useSelector(state => state.notification)
 
   const createNewBlog = event => {
     event.preventDefault()

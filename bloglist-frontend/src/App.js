@@ -6,13 +6,13 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import { initializeBlogs, setBlogs, createBlog, deleteBlog, updateBlog } from './reducers/blogReducer'
 import { setNotification, deleteNotification } from './reducers/notificatonReducer'
+import { loggedIn, loggedOut } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
-  const blogs = useSelector(state => state.blogs)
+  const user = useSelector(state => state.user)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -22,7 +22,7 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
-      setUser(user)
+      dispatch(loggedIn(user))
       blogService.setToken(user.token)
     }
   }, [])
@@ -38,7 +38,7 @@ const App = () => {
         'loggedBlogUser', JSON.stringify(userData)
       )
       blogService.setToken(userData.token)
-      setUser(userData)
+      dispatch(loggedIn(userData))
       setUsername('')
       setPassword('')
     } catch (exception){
@@ -51,7 +51,7 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedBlogUser')
-    setUser(null)
+    dispatch(loggedOut())
   }
 
   const handleNewBlog = async newBlog => {
@@ -105,8 +105,6 @@ const App = () => {
         <BlogForm
           handleLogout={handleLogout}
           handleNewBlog={handleNewBlog}
-          blogs={blogs}
-          user={user}
           handleUpdateBlog={handleUpdateBlog}
           handleDelete={handleDelete}
         /> : <LoginForm
