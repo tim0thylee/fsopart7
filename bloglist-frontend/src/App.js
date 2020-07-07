@@ -4,7 +4,7 @@ import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import { initializeBlogs, setBlogs, createBlog, deleteBlog, updateBlog } from './reducers/blogReducer'
+import { initializeBlogs, createBlog, deleteBlog, updateBlog } from './reducers/blogReducer'
 import { setNotification, deleteNotification } from './reducers/notificatonReducer'
 import { loggedIn, loggedOut } from './reducers/userReducer'
 
@@ -25,7 +25,7 @@ const App = () => {
       dispatch(loggedIn(user))
       blogService.setToken(user.token)
     }
-  }, [])
+  }, [dispatch])
 
   const handleLogin = async event => {
     event.preventDefault()

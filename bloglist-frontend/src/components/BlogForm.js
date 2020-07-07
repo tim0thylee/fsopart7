@@ -1,8 +1,9 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Blog from './Blog'
 import Toggable from './Toggable'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { initializeUsers } from '../reducers/usersDataReducer'
 
 const BlogsForm = ({
   handleLogout,
@@ -10,12 +11,19 @@ const BlogsForm = ({
   handleUpdateBlog,
   handleDelete,
 }) => {
+  const dispatch = useDispatch()
   const user = useSelector(state => state.user)
   const blogs = useSelector(state => state.blogs)
   const notification = useSelector(state => state.notification)
+  const usersData = useSelector(state => state.usersData)
+
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    dispatch(initializeUsers())
+  }, [blogs.length])
 
   const createNewBlog = event => {
     event.preventDefault()
@@ -67,6 +75,26 @@ const BlogsForm = ({
           handleDelete={handleDelete}
         />
       )}
+      <div>
+        <table style={{ width: '300px' }}>
+          <thead>
+            <tr>
+              <th align='left' ><h2>Users</h2></th>
+              <th align='left' ><h2>blogs created</h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            {usersData.map(user => {
+              return (
+                <tr key={user.id}>
+                  <td>{user.username}</td>
+                  <td>{user.blogs.length}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
