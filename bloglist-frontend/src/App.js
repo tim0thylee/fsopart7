@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import BlogForm from './components/BlogForm'
 import LoginForm from './components/LoginForm'
 import blogService from './services/blogs'
@@ -10,6 +11,7 @@ import { loggedIn, loggedOut } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
   const user = useSelector(state => state.user)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -39,6 +41,7 @@ const App = () => {
       )
       blogService.setToken(userData.token)
       dispatch(loggedIn(userData))
+      history.push('/')
       setUsername('')
       setPassword('')
     } catch (exception){
