@@ -7,5 +7,6 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlRvb
  "author": "Tomato",
  "url": "www.tomato.com",
  "likes": 14,
- "userId": "5ec5ad25f05fdf52f8a730ee"
+ "userId": "5ec5ad25f05fdf52f8a730ee",
+ "comments": ["This is funny!"]
 }

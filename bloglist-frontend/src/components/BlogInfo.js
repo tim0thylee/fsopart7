@@ -12,7 +12,7 @@ const BlogInfo = ({ updateBlog, username, handleDelete }) => {
     const handleDeleteButton = event => {
         handleDelete(blog.id, blog)
     }
-    console.log(blog)
+    
     const handleUpdateLikes = (event) => {
         const updatedBlog = {
           title: blog.title,
@@ -34,8 +34,13 @@ const BlogInfo = ({ updateBlog, username, handleDelete }) => {
             likes {blog.likes}
             <button onClick={handleUpdateLikes} className='likeButton'>like</button>
             </div>
-            <div>added by {username}</div>
+            <div>added by {blog.user.username}</div>
             {username === blog.user.username ? <button onClick={handleDeleteButton} className="removeButton">remove</button> : null}
+            <br/>
+            <h3>comments</h3>
+            <u1>
+            {blog.comments.map((comment, i) => <li key={i}>{comment}</li>)}
+            </u1>
         </div>
     )
 }
