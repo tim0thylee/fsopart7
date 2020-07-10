@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react'
 import {
-  Switch, Route
+  Switch, Route, Link
 } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Blog from './Blog'
@@ -23,6 +23,11 @@ const BlogsForm = ({
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
 
+  const navigationStyle = {
+    backgroundColor: '#d3d3d3',
+    padding: '2px'
+  }
+
   const createNewBlog = event => {
     event.preventDefault()
     handleNewBlog({
@@ -42,13 +47,15 @@ const BlogsForm = ({
 
   return (
     <>
-      <h2>blogs</h2>
-      <h3 >{notification}</h3>
-      <div>
+      <div style={navigationStyle}>
+        <Link to={'/blogs'} style={{ marginRight: '3px' }}>blogs</Link>
+        <Link to={'/users'} style={{ marginRight: '3px' }}>users</Link>
         {user.name} has logged in
         <button onClick={handleLogout}>logout</button>
       </div>
       <br/>
+      <h2>blog app</h2>
+      <h3 >{notification}</h3>
       <Switch>
         <Route path='/blogs/:id'>
           <BlogInfo
