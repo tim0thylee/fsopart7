@@ -4,6 +4,8 @@ import {
   Switch, Route, Link
 } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import Blog from './Blog'
 import Toggable from './Toggable'
 import UsersTable from './UsersTable'
@@ -51,7 +53,7 @@ const BlogsForm = ({
         <Link to={'/blogs'} style={{ marginRight: '3px' }}>blogs</Link>
         <Link to={'/users'} style={{ marginRight: '3px' }}>users</Link>
         {user.name} has logged in
-        <button onClick={handleLogout}>logout</button>
+        <Button onClick={handleLogout} variant='contained'>logout</Button>
       </div>
       <br/>
       <h2>blog app</h2>
@@ -76,17 +78,18 @@ const BlogsForm = ({
               <h2>create new</h2>
               <form onSubmit={createNewBlog} >
                 <div>
-                  title: <input type="text" value={title} onChange={({ target }) => setTitle(target.value)} id="title"/>
+                  <TextField label="title" type="text" value={title} onChange={({ target }) => setTitle(target.value)} id="title"/>
                 </div>
                 <div>
-                  author: <input type="text" value={author} onChange={({ target }) => setAuthor(target.value)} id="author"/>
+                  <TextField label="author" type="text" value={author} onChange={({ target }) => setAuthor(target.value)} id="author"/>
                 </div>
                 <div>
-                  url: <input type="text" value={url} onChange={({ target }) => setUrl(target.value)} id="url"/>
+                  <TextField type="text" label="url" value={url} onChange={({ target }) => setUrl(target.value)} id="url"/>
                 </div>
-                <button type="submit" id="createButton">create</button>
+                <Button type="submit" id="createButton" variant='contained' color='primary'>create</Button>
               </form>
             </Toggable>
+            <br/>
             {blogs.sort((a,b) => b.likes - a.likes).map(blog =>
               <Blog
                 key={blog.id}

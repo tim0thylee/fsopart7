@@ -1,5 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from 'react'
+import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
 
 const Togglable = (props) => {
@@ -12,11 +13,11 @@ const Togglable = (props) => {
   return (
     <div>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+        <Button onClick={toggleVisibility} color="primary" variant="contained">{props.buttonLabel}</Button>
       </div>
       <div style={showWhenVisible}>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <Button onClick={toggleVisibility} color="secondary" variant="contained">cancel</Button>
       </div>
     </div>
   )

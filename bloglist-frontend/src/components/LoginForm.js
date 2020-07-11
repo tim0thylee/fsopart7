@@ -3,6 +3,8 @@
 /* eslint-disable indent */
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 
 const LoginForm = ({
     handleLogin,
@@ -15,29 +17,33 @@ const LoginForm = ({
     return (
         <>
         <h2>log in to application</h2>
-        <h3 style={{color: 'red'}}>{notification}</h3>
+        <h3 style={{ color: 'red' }}>{notification}</h3>
         <form onSubmit={handleLogin}>
             <div>
-            username
-            <input 
-                type="text" 
-                name="Username"
-                id="username"
-                value={username}
-                onChange={({ target }) => setUsername(target.value)}
-            />
+                <TextField
+                    type="text" 
+                    name="Username"
+                    id="username"
+                    value={username}
+                    label='username'
+                    variant="outlined"
+                    onChange={({ target }) => setUsername(target.value)}
+                />
             </div>
+            <br/>
             <div>
-            password
-            <input 
-                type="password"
-                name="Password"
-                id="password"
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
-            />
+                <TextField 
+                    type="password"
+                    name="Password"
+                    id="password"
+                    value={password}
+                    label='password'
+                    variant="outlined"
+                    onChange={({ target }) => setPassword(target.value)}
+                />
             </div>
-            <button type="submit" id="loginButton">login</button>
+            <br/>
+            <Button type="submit" id="loginButton" color="primary" variant="contained">login</Button>
         </form>
         </>
     )

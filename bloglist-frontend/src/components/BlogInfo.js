@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 import blogsService from '../services/blogs'
 
 const BlogInfo = ({ updateBlog, username, handleDelete }) => {
@@ -48,14 +50,17 @@ const BlogInfo = ({ updateBlog, username, handleDelete }) => {
             <a href={`${blog.url}`} target="_blank" rel="noopener noreferrer">{blog.url}</a>
             <div>
             likes {blog.likes}
-            <button onClick={handleUpdateLikes} className='likeButton'>like</button>
+            <Button onClick={handleUpdateLikes} className='likeButton' color="primary" variant="contained">like</Button>
             </div>
-            <div>added by {blog.user.username}</div>
-            {username === blog.user.username ? <button onClick={handleDeleteButton} className="removeButton">remove</button> : null}
+            <div>added by {blog.user ? blog.user.username : null}</div>
+            {username === blog.user.username ? <Button onClick={handleDeleteButton} className="removeButton" color="secondary" variant="contained">remove</Button> : null}
             <br/>
             <h3>comments</h3>
-            <input onChange={e => setContent(e.target.value)} value={content}/>
-            <button onClick={addComment}>add comment</button>
+            <div>
+                <TextField variant="outlined" onChange={e => setContent(e.target.value)} value={content}/>
+            </div>
+            <br/>
+            <Button onClick={addComment} variant="contained">add comment</Button>
             <br/>
             <ul>
                 {comments.map((comment, i) => <li key={i}>{comment}</li>)}
